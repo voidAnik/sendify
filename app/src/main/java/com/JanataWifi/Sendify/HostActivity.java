@@ -110,7 +110,7 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
     private void getSetWifiInfo() { // to get the wifi info
 
         if(!permissionsGranted()){
-            Toast.makeText(this, Html.fromHtml("<font color='"+ Color.RED +"' >" + "Location Permission Is Not Granted!" + "</font>"), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, Html.fromHtml("<font color='"+ Color.RED +"' >" + "Location Permission Is Not Granted!" + "</font>"), Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQ_CODE);
         } else {
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
