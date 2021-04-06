@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sendify</string>
+    <string name="give_hotspot">হটস্পট দিন</string>
+    <string name="take_hotspot">হটস্পট নিন</string>
+    <string name="reset_pass">রিসেট পাসওয়ার্ড</string>
+    <string name="share_internet">ইন্টারনেট শেয়ার</string>
+    <string name="todo">TODO</string>
+    <string name="sample_text">A sample text</string>
+    <string name="not_available">Not available</string>
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context=".HostActivity">
+
+    <ImageView
+        android:id="@+id/iv_qrCode"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="@string/todo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp">
+    <EditText
+        android:id="@+id/et_ssid"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/not_available"
+        android:foregroundGravity="center"
+        android:layout_alignParentStart="true"
+        android:autofillHints="SSID" />
+        <ImageButton
+            android:id="@+id/ib_ssid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_content_copy_24"
+            android:contentDescription="@string/todo" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp">
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/not_available"
+            android:foregroundGravity="center"
+            android:layout_alignParentStart="true"
+            android:autofillHints="Password" />
+        <ImageButton
+            android:id="@+id/ib_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_content_copy_24"
+            android:contentDescription="@string/todo" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/reset_pass"
+        />
+    <Button
+        android:id="@+id/bt_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/share_internet"
+        />
+
+
+
+</LinearLayout>
