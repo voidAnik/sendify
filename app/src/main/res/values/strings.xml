@@ -8,4 +8,5 @@
     <string name="sample_text">A sample text</string>
     <string name="not_available">Not available</string>
     <string name="hotspot_bangla">হটস্পট</string>
+    <string name="qr_scan">স্ক্যান QR কোড</string>
 </resources>
