@@ -22,6 +22,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -41,6 +42,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.Random;
 
@@ -49,10 +51,11 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
     //Initialize variables
     ImageView iv_qrCode;
     ImageButton ib_ssid, ib_pass;
-    Button bt_reset;
+    Button bt_reset, bt_share;
     EditText et_ssid, et_pass;
-    private String ssid, bssid;
-    private String password;
+    private static String ssid, bssid;
+    private static String password;
+    private static String number;
     private final int PERMISSION_REQ_CODE = 101;
 
     @Override
@@ -72,8 +75,13 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
         ib_pass.setOnClickListener(HostActivity.this);
         bt_reset = findViewById(R.id.bt_reset);
         bt_reset.setOnClickListener(HostActivity.this);
+        bt_share = findViewById(R.id.bt_share);
+        bt_share.setOnClickListener(HostActivity.this);
         et_ssid = findViewById(R.id.et_ssid);
         et_pass = findViewById(R.id.et_pass);
+
+        //Getting number from intent
+        number = getIntent().getStringExtra("number");
 
         // Get & set the info
         getSetWifiInfo();
@@ -127,11 +135,11 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
                             bssid = connectionInfo.getBSSID();
 
                             // set info SSID
-                            et_ssid.setText(ssid);
+                            et_ssid.setText(number);
                         }
                     }
                 } else {
-                    androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    /*androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage("Wifi is turned off. Turn on Wifi?")
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
@@ -145,7 +153,7 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
                                     wifiManager.setWifiEnabled(true); //true or false
                                     getSetWifiInfo();
                                 }
-                            }).show();
+                            }).show();*/
                 }
             } else {
                 NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -157,7 +165,7 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
                         bssid = connectionInfo.getBSSID();
 
                         // set info SSID
-                        et_ssid.setText(ssid);
+                        et_ssid.setText(number);
                     }
                 } else {
                     androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -258,8 +266,57 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }).show();
                 break;
+
+            case R.id.bt_share:
+
+                androidx.appcompat.app.AlertDialog.Builder hotspotBuilder = new AlertDialog.Builder(this);
+                hotspotBuilder.setMessage("Please turn on your hotspot.")
+                        .setTitle("Turn on Hotspot")
+                        .setNegativeButton("No",null)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                /*if(setWifiApState(true)){
+                                    Toast.makeText(HostActivity.this, "hostspot enabled", Toast.LENGTH_SHORT).show();
+                                }*/
+                                Intent shareIntent = new Intent(HostActivity.this, HostHotspotActivity.class);
+                                shareIntent.putExtra("SSID", ssid);
+                                shareIntent.putExtra("BSSID", bssid);
+                                shareIntent.putExtra("password", password);
+                                startActivity(shareIntent);
+                            }
+                        }).show();
+                break;
+
             default:
                 Toast.makeText(this, Html.fromHtml("<font color='"+ Color.RED +"' >" + "ERROR OCCURRED" + "</font>"), Toast.LENGTH_SHORT).show();
         }
     }
+
+    /*public boolean setWifiApState(boolean enabled) {
+        //config = Preconditions.checkNotNull(config);
+        try {
+            WifiManager mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (enabled) {
+                mWifiManager.setWifiEnabled(false);
+            }
+            WifiConfiguration conf = getWifiApConfiguration();
+            mWifiManager.addNetwork(conf);
+
+            return (Boolean) mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class).invoke(mWifiManager, conf, enabled);
+        } catch (Exception e) {
+            Toast.makeText(this, "EXC", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public WifiConfiguration getWifiApConfiguration() {
+        Toast.makeText(HostActivity.this, "HERE", Toast.LENGTH_SHORT).show();
+        WifiConfiguration conf = new WifiConfiguration();
+        conf.SSID =  "\""+ssid+"\"";
+        //conf.preSharedKey = password;
+        conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+        return conf;
+    }*/
 }

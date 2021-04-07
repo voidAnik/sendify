@@ -8,6 +8,15 @@
     tools:context=".MainActivity"
     android:layout_marginTop="200dp">
 
+    <EditText
+        android:id="@+id/et_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Number here"
+        android:drawableEnd="@drawable/ic_baseline_phone_android_24"
+        android:inputType="number"
+        android:layout_margin="25dp"/>
+
     <Button
         android:id="@+id/sender_hotspot"
         android:layout_width="match_parent"
