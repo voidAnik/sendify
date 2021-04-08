@@ -58,6 +58,10 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
     private static String number;
     private final int PERMISSION_REQ_CODE = 101;
 
+    private WifiManager wifiManager;
+    WifiConfiguration currentConfig;
+    WifiManager.LocalOnlyHotspotReservation hotspotReservation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -319,4 +323,5 @@ public class HostActivity extends AppCompatActivity implements View.OnClickListe
         conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
         return conf;
     }*/
+
 }
